@@ -4,7 +4,6 @@ import Digits from './components/digits';
 import Operators from './components/operators';
 import Reset from './components/reset';
 import Result from './components/result';
-import Sum from './components/sum';
 
 const INITIAL_STATE = {
   currentResult: 0,
@@ -78,7 +77,6 @@ class App extends Component {
 
         <Digits onClick={this.updateResult} />
         <Operators onClick={this.onOperatorClick} />
-        <Sum onClick={this.onOperatorClick} />
 
         <Reset onClick={this.resetState} />
       </div>

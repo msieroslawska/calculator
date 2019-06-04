@@ -5,7 +5,6 @@ import Button from './partials/button';
 
 const Reset = ({ onClick }) => (
   <Button
-    buttonType="reset"
     onClick={onClick}
     value="RESET"
   />

@@ -1,11 +1,15 @@
 import React from 'react';
 
-import Operator from './partials/operator';
+import Button from './partials/button';
 
 const Operators = ({ onClick }) => (
-  ['+', '-', '*', '/'].map(
-    v => <Operator key={`op_${v}`} onClick={onClick} value={v} />,
-  )
+  <div className="operators-area">
+    {
+      ['+', '-', '*', '/', '='].map(
+        v => <Button key={`op_${v}`} onClick={onClick} value={v} />,
+      )
+    }
+  </div>
 );
 
 export default Operators;

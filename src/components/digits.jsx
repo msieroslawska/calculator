@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Digit from './partials/digit';
+import Button from './partials/button';
 
 const Digits = ({ onClick }) => (
-  [...Array(10).keys()].map(
-    i => <Digit key={`dig_${i}`} onClick={onClick} value={i} />,
-  )
+  <div className="digit-area">
+    {
+      [...Array(10).keys()].map(
+        i => <Button key={`dig_${i}`} onClick={onClick} value={i} />,
+      )
+    }
+  </div>
 );
 
 Digits.propTypes = {

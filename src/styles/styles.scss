@@ -1,91 +1,111 @@
 body {
-  background: #cfcfcf;
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    background: #cfcfcf;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-
 .main-container {
-  background: #ffffff;
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  min-width: 60%;
-  min-height: 60%;
-  outline: none;
-  overflow: hidden;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0px 2px 35px rgba(0,0,0,0.27);
-  padding: 20px;
+    background: #ffffff;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    min-width: 60%;
+    min-height: 60%;
+    outline: none;
+    overflow: hidden;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0px 2px 35px rgba(0, 0, 0, 0.27);
+    padding: 20px;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: auto auto [last] auto;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
 
-  .result {
-    margin: auto;
-    width: 50%;
-    height: 30px;
-    border: 1px solid #000000;
-    padding: 5px;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    background-color: #dfeaf9;
-  }
-
-  button {
-    display: inline-block;
-    width: auto;
-    height: auto;
-    font-size: 16px;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-
-    &.digit {
-      border: 1px solid #8391a7;
-      color: #636d7d;
-      background-color: #a4b5d1;
-
-      &:hover, &:active {
-        border: 1px solid #636d7d;
-        color: #424954;
-        background-color: #8391a7;
-      }
+    .result {
+        grid-column: 1 / 4;
+        grid-row: 1;
+        margin: auto;
+        width: 50%;
+        height: 30px;
+        border: 1px solid #000000;
+        padding: 5px;
+        border-radius: 3px 3px 3px 3px;
+        -webkit-border-radius: 3px 3px 3px 3px;
+        -moz-border-radius: 3px 3px 3px 3px;
+        background-color: #dfeaf9;
     }
 
-    &.operator {
-      border: 1px solid #4a4f57;
-      color: #3d4148;
-      background-color: #6a6f75;
-
-      &:hover, &:active {
-        border: 1px solid #3d4148;
-        color: #8b8f94;
-        background-color: #4a4f57;
-      }
+    button {
+        font-size: 16px;
+        border-radius: 3px 3px 3px 3px;
+        -webkit-border-radius: 3px 3px 3px 3px;
+        -moz-border-radius: 3px 3px 3px 3px;
     }
 
-    &.reset {
-      border: 1px solid #d57e8c;
-      color: #804c54;
-      background-color: #d57e8c;
+    .digit-area {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 10px;
+        justify-items: center;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
 
-      &:hover, &:active {
-        border: 1px solid #ab6571;
-        color: #563338;
+        button {
+            border: 1px solid #8391a7;
+            color: #636d7d;
+            background-color: #a4b5d1;
+
+            &:hover, &:active {
+                border: 1px solid #636d7d;
+                color: #424954;
+                background-color: #8391a7;
+            }
+        }
+    }
+
+    .operators-area {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+        justify-items: center;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+
+        button {
+            border: 1px solid #4a4f57;
+            color: #3d4148;
+            background-color: #6a6f75;
+
+            &:hover, &:active {
+                border: 1px solid #3d4148;
+                color: #8b8f94;
+                background-color: #4a4f57;
+            }
+        }
+    }
+
+    & > button, .operators-area button:last-child {
+        border: 1px solid #d57e8c;
+        color: #804c54;
         background-color: #d57e8c;
-      }
-     }
-  }
+
+        &:hover, &:active {
+            border: 1px solid #ab6571;
+            color: #563338;
+            background-color: #d57e8c;
+        }
+    }
 }
