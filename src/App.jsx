@@ -6,100 +6,79 @@ import Reset from './components/reset';
 import Result from './components/result';
 import Sum from './components/sum';
 
-const OPERATORS = ['+', '-', '*', '/'];
+const INITIAL_STATE = {
+  currentResult: 0,
+  operator: null,
+  tempValue: 0,
+};
 
 class App extends Component {
-  state = {
-    latestValue: '',
-    result: '',
-  }
-
-  isOperator = value => OPERATORS.includes(value)
-
-  isAllowed = (value) => {
-    const { latestValue, result } = this.state;
-    if (result === '' && this.isOperator(value)) { // cannot start with op
-      return false;
-    }
-    if (this.isOperator(latestValue) && this.isOperator(value)) { // cannot double ops
-      return false;
-    }
-    return true;
-  }
+  state = INITIAL_STATE;
 
   updateResult = (value) => {
-    if (this.isAllowed(value)) {
+    if (this.state.operator === null) {
       this.setState(prevState => ({
-        latestValue: value,
-        result: `${prevState.result}${value}`,
+        currentResult: Number(value),
+      }));
+    } else {
+      this.setState(prevState => ({
+        currentResult: Number(`${prevState.currentResult}${value}`),
       }));
     }
   }
 
-  onSumUp = () => {
-    const { result } = this.state;
-    const parsedResult = this.isOperator(result[result.length - 1])
-      ? result.substring(0, result.length - 1)
-      : result;
-    let tempNumber = '';
-    let finalResult = parsedResult[0];
-    const results = [];
-
-    for (let i = 1; i <= parsedResult.length; i += 1) {
-      const s = parsedResult.charAt(i);
-      if (!this.isOperator(s)) {
-        tempNumber += s; // combine as string
-        console.log('x not op', tempNumber);
-      } else {
-        results.push([Number(tempNumber), s]);
-        tempNumber = '';
-        console.log('x is op', results);
-      }
+  doMath = ({ operator, currentResult = this.state.currentResult }) => {
+    const { tempValue } = this.state;
+    switch (operator) {
+      case '+':
+        return tempValue + currentResult;
+      case '-':
+        return tempValue - currentResult;
+      case '/':
+        return tempValue / currentResult;
+      case '*':
+            return tempValue * currentResult;
+      default:
+        break;
     }
-
-    console.log(results);
-
-    results.forEach(([number, operator]) => {
-      switch (operator) {
-        case '+':
-          finalResult += number;
-          break;
-        case '-':
-          finalResult -= number;
-          break;
-        case '*':
-          finalResult *= number;
-          break;
-        case '/':
-          finalResult /= number;
-          break;
-        default:
-          //
-      }
-    });
-
-    this.setState({
-      latestValue: '',
-      result: finalResult.toString(),
-    });
   }
 
+  onOperatorClick = (currentOperator) => {
+    if (this.state.operator === null) {
+      this.setState(prevState => ({
+        currentResult: 0,
+        operator: currentOperator,
+        tempValue: prevState.currentResult,
+      }));
+    } else if (currentOperator === '=') {
+      this.setState(prevState => ({
+        currentResult: this.doMath({operator: prevState.operator, currentResult: prevState.currentResult }),
+        operator: null,
+        tempValue: 0,
+      }));
+    } else {
+      this.setState(prevState => ({
+        currentResult: 0,
+        operator: currentOperator,
+        tempValue: this.doMath({operator: prevState.operator }),
+      }));
+    }
+  }
+
+
   resetState = () => {
-    this.setState({
-      latestValue: '',
-      result: '',
-    });
+    this.setState({...INITIAL_STATE});
   }
 
   render() {
-    const { result } = this.state;
+    const { currentResult } = this.state;
     return (
       <div className="main-container">
-        <Result value={result} />
+        <Result value={currentResult} />
 
         <Digits onClick={this.updateResult} />
-        <Operators onClick={this.updateResult} />
-        <Sum onClick={this.onSumUp} />
+        <Operators onClick={this.onOperatorClick} />
+        <Sum onClick={this.onOperatorClick} />
 
         <Reset onClick={this.resetState} />
       </div>
