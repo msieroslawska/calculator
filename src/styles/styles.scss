@@ -26,11 +26,7 @@ code {
     padding: 20px;
     display: grid;
     grid-gap: 15px;
-    grid-template-columns: auto auto [last] auto;
-    justify-items: center;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
+    grid-template-columns: 3fr 100px [last] 1fr;
 
     .result {
         grid-column: 1 / 4;
@@ -38,8 +34,9 @@ code {
         margin: auto;
         width: 50%;
         height: 30px;
+        line-height: 30px;
         border: 1px solid #000000;
-        padding: 5px;
+        padding: 5px 10px;
         border-radius: 3px 3px 3px 3px;
         -webkit-border-radius: 3px 3px 3px 3px;
         -moz-border-radius: 3px 3px 3px 3px;
@@ -57,10 +54,6 @@ code {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 10px;
-        justify-items: center;
-        align-items: center;
-        justify-content: center;
-        align-content: center;
 
         button {
             border: 1px solid #8391a7;
@@ -79,10 +72,6 @@ code {
         display: grid;
         grid-template-columns: 1fr;
         grid-gap: 10px;
-        justify-items: center;
-        align-items: center;
-        justify-content: center;
-        align-content: center;
 
         button {
             border: 1px solid #4a4f57;
@@ -97,7 +86,8 @@ code {
         }
     }
 
-    & > button, .operators-area button:last-child {
+    & > button, .operators-area button:first-child,
+    .operators-area button:nth-child(2) {
         border: 1px solid #d57e8c;
         color: #804c54;
         background-color: #d57e8c;

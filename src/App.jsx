@@ -15,20 +15,16 @@ class App extends Component {
   state = INITIAL_STATE;
 
   updateResult = (value) => {
-    if (this.state.operator === null) {
-      this.setState(prevState => ({
-        currentResult: Number(value),
-      }));
-    } else {
-      this.setState(prevState => ({
-        currentResult: Number(`${prevState.currentResult}${value}`),
-      }));
-    }
+    this.setState(prevState => ({
+      currentResult: Number(`${prevState.currentResult}${value}`),
+    }));
   }
 
   doMath = ({ operator, currentResult = this.state.currentResult }) => {
     const { tempValue } = this.state;
     switch (operator) {
+      case null:
+        return currentResult;
       case '+':
         return tempValue + currentResult;
       case '-':
@@ -36,24 +32,37 @@ class App extends Component {
       case '/':
         return tempValue / currentResult;
       case '*':
-            return tempValue * currentResult;
+        return tempValue * currentResult;
       default:
         break;
     }
   }
 
+  removeLastDigit = () => {
+    let currentResult = this.state.currentResult.toString();
+    return Number(currentResult.substring(0, currentResult.length - 1))
+  }
+
   onOperatorClick = (currentOperator) => {
-    if (this.state.operator === null) {
+    if (currentOperator === 'C' && this.state.currentResult > 9) {
       this.setState(prevState => ({
-        currentResult: 0,
-        operator: currentOperator,
-        tempValue: prevState.currentResult,
+        currentResult: this.removeLastDigit(prevState.currentResult),
       }));
+    } else if (currentOperator === 'C') {
+      this.setState({
+        currentResult: 0,
+      });
     } else if (currentOperator === '=') {
       this.setState(prevState => ({
         currentResult: this.doMath({operator: prevState.operator, currentResult: prevState.currentResult }),
         operator: null,
         tempValue: 0,
+      }));
+    } else if (this.state.operator === null) {
+      this.setState(prevState => ({
+        currentResult: 0,
+        operator: currentOperator,
+        tempValue: prevState.currentResult,
       }));
     } else {
       this.setState(prevState => ({

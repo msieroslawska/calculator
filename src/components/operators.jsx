@@ -5,7 +5,7 @@ import Button from './partials/button';
 const Operators = ({ onClick }) => (
   <div className="operators-area">
     {
-      ['+', '-', '*', '/', '='].map(
+      ['=', 'C', '+', '-', '*', '/'].map(
         v => <Button key={`op_${v}`} onClick={onClick} value={v} />,
       )
     }
